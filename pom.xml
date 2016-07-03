@@ -14,21 +14,13 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <!-- Java EE -->
-        <servlet.version>3.0.1</servlet.version>
         <!-- testing -->
         <junit.version>4.12</junit.version>
         <xmlunit.version>1.6</xmlunit.version>
-        <!-- Spring -->
-        <spring.version>4.2.6.RELEASE</spring.version>
+        <jetty.version>9.3.6.v20151106</jetty.version>
         <!-- Logging -->
         <slf4j.version>1.7.21</slf4j.version>
         <log4j.version>1.2.17</log4j.version>
-        <!-- Commons -->
-        <commons.version>3.4</commons.version>
-        <commons.io.version>2.5</commons.io.version>
-        <commons.configuration.version>1.10</commons.configuration.version>
-        <commons.fileupload.version>1.3.1</commons.fileupload.version>
         <!-- Crawler -->
         <crawler4j.version>4.2</crawler4j.version>
     </properties>
@@ -47,12 +39,6 @@
             <version>${xmlunit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- ***** APACHE COMMONS ***** -->
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>${commons.version}</version>
-        </dependency>
         <!-- ***** LOGGING ***** -->
         <dependency>
             <groupId>log4j</groupId>
@@ -69,10 +55,24 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+        <!-- ***** CRAWLER ***** -->
         <dependency>
             <groupId>edu.uci.ics</groupId>
             <artifactId>crawler4j</artifactId>
             <version>${crawler4j.version}</version>
+        </dependency>
+        <!-- ***** JETTY ***** -->
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-webapp</artifactId>
+            <version>${jetty.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mortbay.jetty</groupId>
+            <artifactId>jetty</artifactId>
+            <version>6.1.25</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
