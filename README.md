@@ -44,8 +44,8 @@ Additional optional program arguments include:
 
 ## Crawling a domain
 
-Crawling domain relies on external library Crawler4j,
-which is an open source Java crawler.
+Crawling a domain is done by *SitemapCrawlController* , which relies on external
+open source Java crawler [Crawler4j](https://github.com/yasserg/crawler4j).
 
 For future references, Crawler4j has a limitation in architecture, where crawling is started with providing crawler class. This makes implementing crawling of several sites a tricky endeavour:
 
