@@ -5,7 +5,7 @@ It is implemented in Java and limited to crawling one domain.
 
 Crawling result is a sitemap file for that domain. Sitemap is a way of informing search engines about pages on your site.
 
-Given a starting URL, this crawler visits all the reachable pages within that domain. It does not follow links to external sites like Facebook.
+Given a starting URL, this crawler visits and searches all the reachable pages within that domain, including static contents like cascading style sheets (css-files). It does not follow links to external sites like Facebook.
 
 The resultant sitemap lists all the other pages in this domain, links to static content such as images, and to external URLs.
 
