@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Collection;
 
-class SitemapCrawlController {
+public class SitemapCrawlController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SitemapCrawlController.class);
 
@@ -57,7 +57,7 @@ class SitemapCrawlController {
 		logger.info("Starting to crawl with " + numberOfCrawlers + " threads");
 		controller.start(SitemapCrawler.class, numberOfCrawlers);
 		SitemapCrawler.getFoundLResources().add(crawlDomain);
-		controller.waitUntilFinish();
+		controller.waitUntilFinish(); // Will block until finished
 	}
 
 	public Collection<String> getUrls() {

@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentSkipListSet;
 public class SitemapCrawler extends WebCrawler {
 
 	private static String crawlDomain;
-	private static Set<String> foundLResources = new ConcurrentSkipListSet();
+	private static Set<String> foundLResources = new ConcurrentSkipListSet(); // TODO should be non-static
 
 	public static Set<String> getFoundLResources() {
 		return foundLResources;

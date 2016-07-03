@@ -6,46 +6,39 @@ import org.w3c.dom.Node;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.*;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collection;
 
-class SitemapWriter {
+public class SitemapWriter {
 
-	private final File targetDirectory;
-
-	public SitemapWriter(final String rootFolder) {
-		this.targetDirectory = new File(rootFolder);
-		if (!targetDirectory.exists()) {
-			targetDirectory.mkdirs();
-		}
+	public SitemapWriter() {
 	}
 
-	public void writeSitemap(final String filename, final Collection<String> urls) throws IOException {
+	public void writeSitemap(final File file, final Collection<String> urls) throws IOException, ParserConfigurationException, TransformerException {
+		Source source  = createDom(urls);
+		StreamResult streamResult = new StreamResult(file);
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+		transformer.transform(source, streamResult);
+	}
+
+	DOMSource createDom(final Collection<String> urls) throws ParserConfigurationException {
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		try {
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.newDocument();
-			Element rootElement = doc.createElementNS("http://www.sitemaps.org/schemas/sitemap/0.9", "urlset");
-			doc.appendChild(rootElement);
-			for (String url : urls) {
-				rootElement.appendChild(getUrlElement(doc, url));
-			}
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			DOMSource source = new DOMSource(doc);
-			File file = new File(targetDirectory, filename);
-			StreamResult streamResult = new StreamResult(file);
-			transformer.transform(source, streamResult);
-		} catch (Exception e) {
-			e.printStackTrace();
+		DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+		Document doc = dBuilder.newDocument();
+		Element rootElement = doc.createElementNS("http://www.sitemaps.org/schemas/sitemap/0.9", "urlset");
+		doc.appendChild(rootElement);
+		for (String url : urls) {
+			rootElement.appendChild(getUrlElement(doc, url));
 		}
+		DOMSource source = new DOMSource(doc);
+		return source;
 	}
 
 	private static Node getUrlElement(final Document doc, final String urlLocation) {

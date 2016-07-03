@@ -3,7 +3,7 @@ package com.foo.webcrawler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
+import java.io.File;
 
 public class Main {
 
@@ -23,15 +23,21 @@ public class Main {
 		if (args.length > 1) {
 			rootFolder = args[1];
 		}
+		File targetDirectory = new File(rootFolder);
+		if (!targetDirectory.exists()) {
+			// Also checks the storage folder before starting the actual heavy crawling process
+			targetDirectory.mkdirs();
+		}
 		String filename = "sitemap.xml";
 		if (args.length > 2) {
 			filename = args[2];
 		}
-		logger.info("Resulting sitemap will be saved into folder '" + rootFolder + "'");
-		SitemapWriter sitemapWriter = new SitemapWriter(rootFolder); // Also checks that the storage folder exists before starting the actual heavy crawling process
-		SitemapCrawlController sitemapCrawler = new SitemapCrawlController(rootFolder, crawlDomain);
-		sitemapCrawler.run();
-		sitemapWriter.writeSitemap(filename, SitemapCrawler.getFoundLResources());
+		logger.info("Resulting sitemap will be saved into file '" + rootFolder + "/" + filename + "'");
+		SitemapWriter sitemapWriter = new SitemapWriter();
+		SitemapCrawlController sitemapCrawlController = new SitemapCrawlController(rootFolder, crawlDomain);
+		sitemapCrawlController.run();
+		File file = new File(targetDirectory, filename);
+		sitemapWriter.writeSitemap(file, sitemapCrawlController.getUrls());
 		logger.info("Crawling domain has finished and site map has been saved successfully");
 	}
 
