@@ -39,7 +39,7 @@ public class SitemapCrawlController {
 	}
 
 	private void initSitemapCrawler() {
-		SitemapCrawler.configure(crawlDomain);
+		SitemapCrawler.configure(crawlDomain); // Not too great architecture
 	}
 
 	private void initController() throws Exception {

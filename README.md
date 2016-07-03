@@ -21,6 +21,8 @@ Inside project folder run Maven assembly command:
 ``` bash
 ~/webcrawler $ mvn assembly:assembly
 ```
+Running all the tests with assembly may take a few minutes.
+
 You will see where the created jar-file was saved from the command output in terminal window.
 
 ``` bash
