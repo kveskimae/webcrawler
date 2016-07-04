@@ -4,6 +4,9 @@ import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.url.WebURL;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListSet;
 
@@ -16,8 +19,9 @@ public class SitemapCrawler extends WebCrawler {
 		return foundLResources;
 	}
 
-	public static void configure(final String domain) {
-		crawlDomain = domain;
+	public static void configure(final String url) throws URISyntaxException, MalformedURLException {
+		URL uri = new URL(url);
+		crawlDomain = uri.getProtocol() + "://" + uri.getAuthority();
 	}
 
 	@Override

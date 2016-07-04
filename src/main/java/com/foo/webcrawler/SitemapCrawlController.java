@@ -8,6 +8,8 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.util.Collection;
 
 public class SitemapCrawlController {
@@ -38,7 +40,7 @@ public class SitemapCrawlController {
 		config.setIncludeBinaryContentInCrawling(true);
 	}
 
-	private void initSitemapCrawler() {
+	private void initSitemapCrawler() throws MalformedURLException, URISyntaxException {
 		SitemapCrawler.configure(crawlDomain); // Not too great architecture
 	}
 
